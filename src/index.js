@@ -4,7 +4,7 @@ import './index.css';
 import GlobalStyle from './styles/GlobalStyle';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import ExchangeRates from './components/ExchangeRates';
+
 import {
   ApolloClient,
   InMemoryCache,
