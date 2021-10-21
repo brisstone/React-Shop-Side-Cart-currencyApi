@@ -10,7 +10,7 @@ import CurrencyCalc from './CurrencyCalc';
 
 export default function Sidebar(props) {
   const { cartItems, onAdd, onRemove } = props;
-  const [currency1, setCurrency1] = useState();
+  const [currency1, setCurrency1] = useState('USD');
   const [rate, setRate] = useState(1);
   const [isToggle, setIsToggle] = useState(false);
   

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 export default function CurrencyCalc(props) {
 
-  const [currency1, setCurrency1] = useState();
+  const [currency1, setCurrency1] = useState('USD');
 
 
 
@@ -68,7 +68,7 @@ export default function CurrencyCalc(props) {
   </CurrencyCalcStyle> :
 
     <CurrencyCalcStyle>
-      <select className="selectOption" setCurrency1={setCurrency1(currency1)} value={currency1} onChange={(e) => handleCurrencyChange(e)}>
+      <select className="selectOption" value={currency1} onChange={(e) => handleCurrencyChange(e)}>
 
         {data.rates.map((item) => (<option  className="currencyOption" key={item.currency} value={item.currency}>{item.currency}</option>))
 
