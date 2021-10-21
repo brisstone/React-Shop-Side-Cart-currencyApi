@@ -1,4 +1,3 @@
-import { graphql } from "graphql";
 import {gql} from '@apollo/client';
 
 

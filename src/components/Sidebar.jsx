@@ -1,44 +1,22 @@
-import React, {useRef, useEffect} from 'react';
-import {ProductsData} from '../dummyData';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import Products from './Products';
-import Home from '../pages/Home';
-
-import axios from 'axios';
 
 import CurrencyCalc from './CurrencyCalc';
 
 
 
 export default function Sidebar(props) {
+  const { cartItems, onAdd, onRemove } = props;
+  const [currency1, setCurrency1] = useState('');
+  const [rate, setRate] = useState(1);
+  const [isToggle, setIsToggle] = useState(false);
 
-  const [itemsPriceCon, setItemsPriceCon ] = useState();
-
-    const {cartItems, onAdd, onRemove} = props;
-
-
-    const [amount1, setAmount1] = useState(1);
-    const [amount2, setAmount2] = useState(1);
-    const [currency1, setCurrency1] = useState('');
-    // const [currency2, setCurrency2] = useState('EUR');
-    const [rate, setRate] = useState(1);
-
-    console.log("ttttttttttttttttttttttttt",rate)
-
-
-  var itemsPrice = cartItems.reduce((a,b)=> Number(a) + Number(b.price) * Number(b.qty), 0);
+  var itemsPrice = cartItems.reduce((a, b) => Number(a) + Number(b.price) * Number(b.qty), 0);
   itemsPrice = Number(rate) * itemsPrice;
 
-  console.log("llllllllllllllllllllllllllllll",typeof(rate))
-  // var updatediemsPrice = itemsPrice  
-  // console.log(typeof qty);
-  // console.log(props.match.params.id)
-
-  // const product = ProductsData.find(x => x._id === props.match.params.id);
-
-  const [isToggle, setIsToggle] = useState(false);
 
 
   const $sideBarRef = useRef();
@@ -49,32 +27,32 @@ export default function Sidebar(props) {
 
   var clicked = false;
 
-  const Togglesidebar = () =>{
+  const Togglesidebar = () => {
 
-    if(!clicked){
+
+    if (!clicked) {
       // clicked = true;
       setIsToggle(true);
-     
+
       clicked = true;
     }
   }
-   
-  var exchangeRate = null;
 
-  const pull_ItemsPrice = (data, currency1) => {
 
-    // window.updatedItemsPrice = data;
-    setRate(data);
+  const pull_ItemsPrice = (exchangeRate, currency1) => {
+
+
+    setRate(exchangeRate);
     setCurrency1(currency1);
-   exchangeRate = data;
-    // console.log(updatedItemsPrice); 
-    console.log(exchangeRate); 
+
+
+    console.log(currency1);
     return exchangeRate;
-    
+
   }
 
 
-  
+
   // const pull_currency = (currency1) => {
 
   //   // window.updatedItemsPrice = data;
@@ -84,91 +62,89 @@ export default function Sidebar(props) {
   //   // console.log(updatedItemsPrice); 
   //   console.log(exchangeRate); 
   //   return exchangeRate;
-    
+
   // }
 
-  
-
-  console.log(exchangeRate); 
-  
 
 
-    return (
-      <>
-        <Products onAdd ={onAdd} className="ProductComp" Togglesidebar={Togglesidebar} />
-        
+
+
+
+
+  return (
+    <>
+      <Products onAdd={onAdd} className="ProductComp" Togglesidebar={Togglesidebar} />
+
+
+      <SidebarStyle ref={$sideBarRef} className={isToggle ? 'expand' : 'shrink'} >
 
         <div className="sidebar-header">
-            <div className="arrow-back">&#8592;</div>
-            <div> YOUR CART</div> 
+          <div className="arrow-back">&#8592;</div>
+          <div> YOUR CART</div>
         </div>
-          
-        <SidebarStyle ref={$sideBarRef}   className={isToggle ? 'expand' : 'shrink'} > 
 
-          
-            
 
-          <CurrencyCalc currency1={currency1} setCurrency1={setCurrency1} pull_ItemsPrice={pull_ItemsPrice} itemsPrice={itemsPrice}/>
+        <CurrencyCalc currency1={currency1} setCurrency1={setCurrency1} pull_ItemsPrice={pull_ItemsPrice} itemsPrice={itemsPrice} />
 
-         
 
-          <div className="container">
-            <div className="products-container">
-             
-              {cartItems.length === 0 && <div>Cart is empty</div>}
-              {cartItems.map((item) =>(
-                <div key = {cartItems._id} className="product-container">
-                  <div className="product-name-btn">
-                        <div className="product-name">{item.name}</div>
-                        <div className="cart-button-div">
-                          <div className="btn-add-remove">
-                              <button onClick={()=> onAdd(item)} className="add">+&nbsp;</button>
-                              {item.qty} 
-                              <button onClick={()=> onRemove(item)} className="remove">&nbsp;-</button>
-                          </div>
-                          
-                        </div>
+
+        <div className="container">
+          <div className="products-container">
+
+            {cartItems.length === 0 && <div>Cart is empty</div>}
+            {cartItems.map((item) => (
+              <div key={item._id} className="product-container">
+                <div className="product-name-btn">
+                  <div className="product-name">{item.name}</div>
+                  <div className="cart-button-div">
+                    <div className="btn-add-remove">
+                      <button onClick={() => onAdd(item)} className="add">+&nbsp;</button>
+                      {item.qty}
+                      <button onClick={() => onRemove(item)} className="remove">&nbsp;-</button>
+                    </div>
+
                   </div>
-                  <div className="product-total">
-                    {/* <Itemtotal itemsPrice={item.qty * item.price.toFixed(2)} />  */}
-                    {/* const itemsPrice = Number(props.itemsPrice) * Number(e.rate)  */}
-                    {currency1}&nbsp;{Number(rate) * item.qty * item.price.toFixed(2)}
-                  </div>
-                  <div className="image-div">
-                    <img src={item.image} alt="#" />
-                    
-                  </div>
+                </div>
+                <div className="product-total">
+                  {/* <Itemtotal itemsPrice={item.qty * item.price.toFixed(2)} />  */}
+                  {/* const itemsPrice = Number(props.itemsPrice) * Number(e.rate)  */}
+                  {currency1}&nbsp;{Number(rate) * item.qty * item.price.toFixed(2)}
+                </div>
+                <div className="image-div">
+                  <img src={item.image} alt="#" />
 
                 </div>
-                
-              ))}
 
-               
-              {cartItems.length !==0 &&(
-                <div className="subtotal">
-                  
-                 <div> Subtotal</div>  <div>  {currency1}&nbsp;{itemsPrice.toFixed(2)}</div>
-                
-                </div>
-              )}
+              </div>
+
+            ))}
+
+
+            {cartItems.length !== 0 && (
+              <div className="subtotal">
+
+                <div> Subtotal</div>  <div>  {currency1}&nbsp;{itemsPrice.toFixed(2)}</div>
+
+              </div>
+            )}
           </div>
           <div>
             <button className="subscription">
-            MAKE THIS A SUBSCRIPTION (SAVE 20%)
+              MAKE THIS A SUBSCRIPTION (SAVE 20%)
             </button>
           </div>
           <div>
             <button className="proceed-tocheckout-btn">
-            PROCEED TO CHECKOUT
+              PROCEED TO CHECKOUT
             </button>
           </div>
-          
-      </div>
-          {/* <Products setIsToggle={props.setIsToggle(true)} /> */}
-        </SidebarStyle>
 
-      </>
-    )
+        </div>
+        {/* <Products setIsToggle={props.setIsToggle(true)} /> */}
+      </SidebarStyle>
+
+    </>
+  )
 }
 
 
@@ -230,8 +206,7 @@ const SidebarStyle = styled.div`
 
   .products-container{
     min-height: 15rem;
-  //   min-height: ;
-  //  max-height: ;
+
   }
 
   .product-container{

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Navigationbar from '../components/Navigationbar';
-import Products from '../components/Products';
 import Sidebar from '../components/Sidebar';
 import { useState } from 'react';
 
@@ -11,62 +10,49 @@ export default function Home() {
     const [isToggle, setIsToggle] = useState(false);
     const [cartItems, setCartItems] = useState([]);
 
-    const onAdd = (product) =>{
+    const onAdd = (product) => {
         const exist = cartItems.find(x => x._id === product._id);
-        if(exist){
-            setCartItems(cartItems.map(x => x._id === product._id ? {...exist, qty: exist.qty+1} : x));
-        }else{
-            setCartItems([...cartItems, {...product, qty: 1}]);
+        if (exist) {
+            setCartItems(cartItems.map(x => x._id === product._id ? { ...exist, qty: exist.qty + 1 } : x));
+        } else {
+            setCartItems([...cartItems, { ...product, qty: 1 }]);
         }
-        
+        // Togglesidebar(false);
     }
 
-    const onRemove = (product) =>{
+    const onRemove = (product) => {
         const exist = cartItems.find(x => x._id === product._id);
-        if(exist.qty == 1){
+        if (exist.qty === 1) {
             setCartItems(cartItems.filter((x) => x._id !== product._id));
-           
-        }else{
-            setCartItems(cartItems.map(x => x._id === product._id ? {...exist, qty: exist.qty-1} : x));
+
+        } else {
+            setCartItems(cartItems.map(x => x._id === product._id ? { ...exist, qty: exist.qty - 1 } : x));
         }
-        Togglesidebar(false);
+        // Togglesidebar(false);
     }
 
 
-    var clicked = false;
-  const Togglesidebar = () =>{
 
-    if(!clicked){
-      // clicked = true;
-      setIsToggle(true);
-     
-      clicked = true;
-    }
-  }
 
-   
+
     return (
 
         <HomeStyle>
             <div className="container">
 
-                    <div className="homewrapper">
-                        <Navigationbar/>  
-                        {/* <Products onAdd ={onAdd} Togglesidebar={Togglesidebar} /> */}
-                    </div>
+                <div className="homewrapper">
+                    <Navigationbar />
+
+                </div>
 
             </div>
 
-            <Sidebar Togglesidebar={Togglesidebar} isToggle={isToggle} setIsToggle={setIsToggle} onAdd ={onAdd} onRemove = {onRemove} cartItems={cartItems}/>
+            <Sidebar isToggle={isToggle} setIsToggle={setIsToggle} onAdd={onAdd} onRemove={onRemove} cartItems={cartItems} />
 
-            
-            
-                    {/* <div>
-                        <div className="sidebar">
-                            <Sidebar isToggle={isToggle} setisToggle={setisToggle}/>
-                            </div>
-                    </div> */}
-            
+
+
+
+
         </HomeStyle>
     )
 }

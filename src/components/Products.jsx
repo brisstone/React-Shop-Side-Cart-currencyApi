@@ -1,22 +1,18 @@
-import React from 'react';
-import { ProductsData } from '../dummyData';
 import { productsdata } from '../data';
 import styled from 'styled-components';
-import { Link, BrowserRouter } from 'react-router-dom';
-import Sidebar from './Sidebar';
+import { BrowserRouter } from 'react-router-dom';
 
 
 export default function Products(props) {
   const {onAdd, Togglesidebar} = props;
 
-  const openMenu =  () => {
-      // document.querySelector(".sidebar").classList.add("open")
-  }
 
+ 
   const PerformCartSide =  (product) => {
-    onAdd(product);
-    Togglesidebar(false);
-    console.log("button pressed")
+      
+      onAdd(product);
+      Togglesidebar();
+   
 }
 
 
@@ -29,7 +25,7 @@ export default function Products(props) {
 
           productsdata.map((product)=>
                 <div key={product._id}>
-                    <div className="product-image" pr>
+                    <div className="product-image">
                       {/* kk */}
                       <img src={product.image} alt="#" />
                     </div>
@@ -40,7 +36,7 @@ export default function Products(props) {
                       <h3>From USD {product.price}</h3>
                     </div>
                     <div className="add-to-cart">
-                      <button className="add-cart-btn" onClick={()=> PerformCartSide(product, false)}   >
+                      <button className="add-cart-btn" onClick={()=> PerformCartSide(product)}   >
                        Add to cart
                       </button  >
                      
@@ -102,9 +98,6 @@ const ProductsStyle = styled.div`
     place-self: unset;
     /* align-self: center; */
     object-fit: contain;
-
-   
-    
    
   }
   .add-to-cart{
