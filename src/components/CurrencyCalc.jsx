@@ -6,23 +6,20 @@ import styled from 'styled-components';
 
 export default function CurrencyCalc(props) {
 
-  const [currency1, setCurrency1] = useState('');
+  const [currency1, setCurrency1] = useState('USD');
 
 
 
 
   // get updatedcurrency1 somewhere
-  var updatedcurrency1 = setCurrency1
+//   var updatedcurrency1 = setCurrency1
 
-  useEffect(() => {
+//  useEffect(() => {
 
-    if (setCurrency1) {
-
-      setCurrency1(setCurrency1)
-
-    }
-    // at this point, currentItem will always be the latest state, as it runs when currentItem changes
-  }, [updatedcurrency1])
+//   handleCurrencyChange();
+    
+//     // at this point, currentItem will always be the latest state, as it runs when currentItem changes
+//   }, [updatedcurrency1]) 
 
 
 
@@ -31,53 +28,34 @@ export default function CurrencyCalc(props) {
   if (loading) return <p>Loading...</p>;
 
 
+  const handleCurrencyChange = (e) => {
 
-  console.log(data)
-
-  const getCurrencyMatch = (e) => {
-
-
-
-  }
-
-
-  const handleCurrencyChange = async (e) => {
     setCurrency1(e.target.value)
 
 
-    try {
-      getCurrencyMatch(e.target.value)
+    console.log(e.target.value)
 
-      console.log(e.target.value)
+    data.rates.filter(e => {
 
-      await data.rates.filter(e => {
-
-        if (e.currency === currency1) {
-          console.log(e.rate)
-          console.log(e.currency)
-          setCurrency1(currency1)
-          // setCurrency1(e.target.value);
-
-          const itemsPrice = Number(props.itemsPrice) * Number(e.rate)
-          console.log(itemsPrice)
-          var exchangeRate = e.rate;
-
-          props.pull_ItemsPrice(exchangeRate, currency1);
-
-          return setCurrency1(currency1);
-
-        } else {
-          return "no match"
-        }
-
-      })
-    } catch (e) {
-          console.log(e)
-    }
+      if (e.currency === currency1) {
+        console.log(e.rate)
+        console.log(e.currency)
 
 
+       //sumup total
+        const itemsPrice = Number(props.itemsPrice) * Number(e.rate)
+        console.log(itemsPrice)
+        var exchangeRate = e.rate;
 
+        props.pull_ItemsPrice(exchangeRate, currency1);
 
+        return currency1;
+
+      } else {
+        return "CURENCY NOT FOUND"
+      }
+
+    })
   }
 
 
@@ -89,7 +67,7 @@ export default function CurrencyCalc(props) {
   </CurrencyCalcStyle> :
 
     <CurrencyCalcStyle>
-      <select className="selectOption"  value={currency1} onChange={(e) => handleCurrencyChange(e)}>
+      <select className="selectOption" value={currency1} onChange={(e) => handleCurrencyChange(e)}>
 
         {data.rates.map((item) => (<option className="currencyOption" key={item.currency} value={item.currency}>{item.currency}</option>))
 

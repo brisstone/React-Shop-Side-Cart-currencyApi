@@ -53,24 +53,6 @@ export default function Sidebar(props) {
 
 
 
-  // const pull_currency = (currency1) => {
-
-  //   // window.updatedItemsPrice = data;
-  //   setRate(data);
-  //   setCurrency1(currency1);
-  //  exchangeRate = data;
-  //   // console.log(updatedItemsPrice); 
-  //   console.log(exchangeRate); 
-  //   return exchangeRate;
-
-  // }
-
-
-
-
-
-
-
   return (
     <>
       <Products onAdd={onAdd} className="ProductComp" Togglesidebar={Togglesidebar} />
