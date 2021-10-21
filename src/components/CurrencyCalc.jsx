@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 export default function CurrencyCalc(props) {
 
-  const [currency1, setCurrency1] = useState('USD');
+  const [currency1, setCurrency1] = useState();
 
 
 
@@ -18,7 +18,7 @@ export default function CurrencyCalc(props) {
 
 //   handleCurrencyChange();
     
-//     // at this point, currentItem will always be the latest state, as it runs when currentItem changes
+
 //   }, [updatedcurrency1]) 
 
 
@@ -27,6 +27,7 @@ export default function CurrencyCalc(props) {
 
   if (loading) return <p>Loading...</p>;
 
+  //  setCurrency1(data.rates[1].currency);
 
   const handleCurrencyChange = (e) => {
 
@@ -67,9 +68,9 @@ export default function CurrencyCalc(props) {
   </CurrencyCalcStyle> :
 
     <CurrencyCalcStyle>
-      <select className="selectOption" value={currency1} onChange={(e) => handleCurrencyChange(e)}>
+      <select className="selectOption" setCurrency1={setCurrency1(currency1)} value={currency1} onChange={(e) => handleCurrencyChange(e)}>
 
-        {data.rates.map((item) => (<option className="currencyOption" key={item.currency} value={item.currency}>{item.currency}</option>))
+        {data.rates.map((item) => (<option  className="currencyOption" key={item.currency} value={item.currency}>{item.currency}</option>))
 
         }
       </select>
