@@ -14,15 +14,15 @@ import CurrencyCalc from './CurrencyCalc';
 
 export default function Sidebar(props) {
 
-  const [itemsPriceCon, setItemsPriceCon] = useState();
+  const [itemsPriceCon, setItemsPriceCon ] = useState();
 
     const {cartItems, onAdd, onRemove} = props;
 
 
     const [amount1, setAmount1] = useState(1);
     const [amount2, setAmount2] = useState(1);
-    const [currency1, setCurrency1] = useState('USD');
-    const [currency2, setCurrency2] = useState('EUR');
+    const [currency1, setCurrency1] = useState('');
+    // const [currency2, setCurrency2] = useState('EUR');
     const [rate, setRate] = useState(1);
 
     console.log("ttttttttttttttttttttttttt",rate)
@@ -38,13 +38,14 @@ export default function Sidebar(props) {
 
   // const product = ProductsData.find(x => x._id === props.match.params.id);
 
-  const [isToggle, setisToggle] = useState(false);
+  const [isToggle, setIsToggle] = useState(false);
 
 
   const $sideBarRef = useRef();
 
   // # handle the onclick outside the sidebar
-  useOnClickOutside($sideBarRef, () => setisToggle(false));
+  useOnClickOutside($sideBarRef, () => setIsToggle(false));
+
 
   var clicked = false;
 
@@ -52,7 +53,7 @@ export default function Sidebar(props) {
 
     if(!clicked){
       // clicked = true;
-      setisToggle(true);
+      setIsToggle(true);
      
       clicked = true;
     }
@@ -72,6 +73,20 @@ export default function Sidebar(props) {
     
   }
 
+
+  
+  // const pull_currency = (currency1) => {
+
+  //   // window.updatedItemsPrice = data;
+  //   setRate(data);
+  //   setCurrency1(currency1);
+  //  exchangeRate = data;
+  //   // console.log(updatedItemsPrice); 
+  //   console.log(exchangeRate); 
+  //   return exchangeRate;
+    
+  // }
+
   
 
   console.log(exchangeRate); 
@@ -80,12 +95,20 @@ export default function Sidebar(props) {
 
     return (
       <>
-      
         <Products onAdd ={onAdd} className="ProductComp" Togglesidebar={Togglesidebar} />
         
+
+        <div className="sidebar-header">
+            <div className="arrow-back">&#8592;</div>
+            <div> YOUR CART</div> 
+        </div>
+          
         <SidebarStyle ref={$sideBarRef}   className={isToggle ? 'expand' : 'shrink'} > 
 
-          <CurrencyCalc pull_ItemsPrice={pull_ItemsPrice} itemsPrice={itemsPrice}/>
+          
+            
+
+          <CurrencyCalc currency1={currency1} setCurrency1={setCurrency1} pull_ItemsPrice={pull_ItemsPrice} itemsPrice={itemsPrice}/>
 
          
 
@@ -96,12 +119,12 @@ export default function Sidebar(props) {
               {cartItems.map((item) =>(
                 <div key = {cartItems._id} className="product-container">
                   <div className="product-name-btn">
-                        <div>{item.name}</div>
+                        <div className="product-name">{item.name}</div>
                         <div className="cart-button-div">
                           <div className="btn-add-remove">
-                              <button onClick={()=> onAdd(item)} className="add">+</button>
+                              <button onClick={()=> onAdd(item)} className="add">+&nbsp;</button>
                               {item.qty} 
-                              <button onClick={()=> onRemove(item)} className="remove">-</button>
+                              <button onClick={()=> onRemove(item)} className="remove">&nbsp;-</button>
                           </div>
                           
                         </div>
@@ -109,7 +132,7 @@ export default function Sidebar(props) {
                   <div className="product-total">
                     {/* <Itemtotal itemsPrice={item.qty * item.price.toFixed(2)} />  */}
                     {/* const itemsPrice = Number(props.itemsPrice) * Number(e.rate)  */}
-                    {currency1}{Number(rate) * item.qty * item.price.toFixed(2)}
+                    {currency1}&nbsp;{Number(rate) * item.qty * item.price.toFixed(2)}
                   </div>
                   <div className="image-div">
                     <img src={item.image} alt="#" />
@@ -124,7 +147,7 @@ export default function Sidebar(props) {
               {cartItems.length !==0 &&(
                 <div className="subtotal">
                   
-                 <div> Subtotal</div>  <div>{currency1}{itemsPrice.toFixed(2)}</div>
+                 <div> Subtotal</div>  <div>  {currency1}&nbsp;{itemsPrice.toFixed(2)}</div>
                 
                 </div>
               )}
@@ -140,8 +163,8 @@ export default function Sidebar(props) {
             </button>
           </div>
           
-          </div>
-          {/* <Products setisToggle={props.setisToggle(true)} /> */}
+      </div>
+          {/* <Products setIsToggle={props.setIsToggle(true)} /> */}
         </SidebarStyle>
 
       </>
@@ -150,11 +173,11 @@ export default function Sidebar(props) {
 
 
 const SidebarStyle = styled.div`
-  background-color: red;
+  background-color: #efedf2;
   position: fixed;
   flex: 2.5;
   z-index:1000;
-  width: 500px;
+  width: 450px;
   top: 0;
   right: 0;
   padding: 25px;
@@ -181,7 +204,7 @@ const SidebarStyle = styled.div`
        transform:translate(200%)
    }  */
   .container{
-        background-color: white;
+        background-color: #efedf2;
         font-size: 20px;
         display: grid;
         grid-template-columns: 1fr;
@@ -190,10 +213,32 @@ const SidebarStyle = styled.div`
 
   }
 
+  .sidebar-header{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      color: #2e2d2c;
+  }
+
+  .arrow-back{
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    color: #403e3c;
+    border: 1px solid #999897;
+    padding-top: -25px;
+  }
+
+  .products-container{
+    min-height: 15rem;
+  //   min-height: ;
+  //  max-height: ;
+  }
+
   .product-container{
+    // font-size: 100rem;
     margin-top: 15px;
-    height: 8rem;
-    background-color: green;
+    height: 5rem;
+    background-color: white;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     /* align-items: center; */
@@ -206,20 +251,46 @@ const SidebarStyle = styled.div`
   .image-div{
     display: flex;
     align-items: center;
+    justify-content: center; 
+
+    
   }
   img{
-    height: 4rem;
-    width: 4rem;
+    height: 2rem;
+    width: 2rem;
   }
 
   .product-name-btn{
+    font-size: 1px;
+    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
+  .product-name{
+    font-size: 0.8rem;
+  }
+
+  .product-total{
+    font-size: 0.8rem;
+  }
+
+ 
+
 .btn-add-remove{
   display: inline-block;
+  font-size: 0.8rem;
+  height: 28px;
+  border: 4px solid #2e2d2c;
+}
+
+.add{
+  font-size: 0.8rem; 
+}
+
+.remove{
+  font-size: 0.8rem;
 }
 
   .product-total{
@@ -230,7 +301,7 @@ const SidebarStyle = styled.div`
   }
 
   .btn-add-remove{
-    border: 1px solid black;
+    border: 1px solid #2e2d2c;
     display: inline-block;
     background-color: white;
     padding-left: 10px;
@@ -241,6 +312,7 @@ const SidebarStyle = styled.div`
     background-color: white;
     border: none;
     padding: 3px;
+    
   }
 
   .subtotal{
@@ -249,16 +321,25 @@ const SidebarStyle = styled.div`
     margin-top: 10rem;
     padding-top: 1rem;
     border-top: 1px solid black;
+    color: #2e2d2c;
   }
 
   .subscription{
     border: 1px solid black;
-    padding: 1rem;
+    padding: 0.7rem;
+    font-size: 0.8rem;
+    width: 100%;
+    background-color: white;
+    margin-top: 1rem;
   }
 
   .proceed-tocheckout-btn{
     width: 100%;
     margin-top: 1rem;
+    background-color: #605f63;
+    padding: 0.7rem;
+    border: none;
+    color: white;
   }
   /* .grid{
     display: grid;

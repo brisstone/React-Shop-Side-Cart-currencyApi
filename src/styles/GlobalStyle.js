@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     body{

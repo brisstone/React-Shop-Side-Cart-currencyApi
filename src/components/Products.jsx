@@ -16,6 +16,7 @@ export default function Products(props) {
   const PerformCartSide =  (product) => {
     onAdd(product);
     Togglesidebar(false);
+    console.log("button pressed")
 }
 
 
@@ -36,7 +37,7 @@ export default function Products(props) {
                       <h2>{product.name}</h2>
                     </div>
                     <div>
-                      <h3>From {product.price}</h3>
+                      <h3>From USD {product.price}</h3>
                     </div>
                     <div className="add-to-cart">
                       <button className="add-cart-btn" onClick={()=> PerformCartSide(product, false)}   >
@@ -80,12 +81,23 @@ const ProductsStyle = styled.div`
         text-align: center;
         padding-top: 100px;
         padding-bottom: 100px;
+
+        @media only screen and (max-width: 768px){
+          html{
+      font-size: 48% ;  /* i want 1 rem = 12px ; 8px/16px = 50% */
+          }
+
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+
+        }
   }
 
   .product-image{
     height: 200px;
     width: 200px;
-    background-color:green;
+    background-color: blue;
     margin-bottom: 40px;
     place-self: unset;
     /* align-self: center; */

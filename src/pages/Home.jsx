@@ -57,7 +57,7 @@ export default function Home() {
 
             </div>
 
-            <Sidebar isToggle={isToggle} setIsToggle={setIsToggle} onAdd ={onAdd} onRemove = {onRemove} cartItems={cartItems}/>
+            <Sidebar Togglesidebar={Togglesidebar} isToggle={isToggle} setIsToggle={setIsToggle} onAdd ={onAdd} onRemove = {onRemove} cartItems={cartItems}/>
 
             
             
