@@ -60,7 +60,7 @@ export default function CurrencyCalc(props) {
 
 
 
-  return error ? <CurrencyCalcStyle>
+  return error || loading ? <CurrencyCalcStyle>
     <select className="selectOption" >
       <option className="currencyOption">USD</option>
     </select>
