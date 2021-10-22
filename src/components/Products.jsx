@@ -26,7 +26,7 @@ export default function Products(props) {
           productsdata.map((product)=>
                 <div key={product._id}>
                     <div className="product-image">
-                      {/* kk */}
+                    
                       <img src={product.image} alt="#" />
                     </div>
                     <div className="product-name">

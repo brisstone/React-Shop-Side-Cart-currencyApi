@@ -13,10 +13,10 @@ export default function Sidebar(props) {
   const [currency1, setCurrency1] = useState('USD');
   const [rate, setRate] = useState(1);
   const [isToggle, setIsToggle] = useState(false);
-  
+
 
   var itemsPrice = cartItems.reduce((a, b) => Number(a) + Number(b.price) * Number(b.qty), 0);
-  itemsPrice =  itemsPrice * Number(rate);
+  itemsPrice = itemsPrice * Number(rate);
 
 
 
@@ -89,7 +89,7 @@ export default function Sidebar(props) {
                   </div>
                 </div>
                 <div className="product-total">
-                 
+
                   {currency1}&nbsp;{Number(rate) * item.qty * item.price}
                 </div>
                 <div className="image-div">
@@ -122,7 +122,7 @@ export default function Sidebar(props) {
           </div>
 
         </div>
-        {/* <Products setIsToggle={props.setIsToggle(true)} /> */}
+
       </SidebarStyle>
 
     </>
