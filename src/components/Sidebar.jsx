@@ -16,7 +16,7 @@ export default function Sidebar(props) {
   
 
   var itemsPrice = cartItems.reduce((a, b) => Number(a) + Number(b.price) * Number(b.qty), 0);
-  itemsPrice = Number(rate) * itemsPrice;
+  itemsPrice =  itemsPrice * Number(rate);
 
 
 
@@ -89,8 +89,7 @@ export default function Sidebar(props) {
                   </div>
                 </div>
                 <div className="product-total">
-                  {/* <Itemtotal itemsPrice={item.qty * item.price.toFixed(2)} />  */}
-                  {/* const itemsPrice = Number(props.itemsPrice) * Number(e.rate)  */}
+                 
                   {currency1}&nbsp;{Number(rate) * item.qty * item.price.toFixed(2)}
                 </div>
                 <div className="image-div">

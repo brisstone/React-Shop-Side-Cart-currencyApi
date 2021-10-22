@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { EXCHANGE_RATES } from "../graphql/Queries";
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
+import CurrencyOption from "./CurrencyOption";
 
 
 export default function CurrencyCalc(props) {
@@ -10,42 +11,61 @@ export default function CurrencyCalc(props) {
 
 
 
+  useEffect(() => {
 
-  // get updatedcurrency1 somewhere
-//   var updatedcurrency1 = setCurrency1
+    if (data) {
+      const initialcurrency = data.rates[0].currency;
+      setCurrency1(data.rates[initialcurrency]);
+      // console.log(currency1);
 
-//  useEffect(() => {
+      data.rates.filter(item => {
 
-//   handleCurrencyChange();
-    
 
-//   }, [updatedcurrency1]) 
+        if (item.currency === currency1) {
+          // console.log(item.rate)
+          // console.log(item.currency)
 
+          //sumup total
+          // const itemsPrice = Number(props.itemsPrice) * Number(item.rate)
+          // console.log(itemsPrice)
+          var exchangeRate = item.rate;
+
+          props.pull_ItemsPrice(exchangeRate, currency1);
+
+          return currency1;
+        } else {
+          return "CURENCY NOT FOUND"
+        }
+
+      })
+    }
+
+  }, [props, currency1])
 
 
   const { loading, error, data } = useQuery(EXCHANGE_RATES);
 
   if (loading) return <p>Loading...</p>;
 
-  //  setCurrency1(data.rates[1].currency);
+
 
   const handleCurrencyChange = (e) => {
 
     setCurrency1(e.target.value)
 
 
-    console.log(e.target.value)
+    // console.log(e.target.value)
 
     data.rates.filter(e => {
 
       if (e.currency === currency1) {
-        console.log(e.rate)
-        console.log(e.currency)
+        // console.log(e.rate)
+        // console.log(e.currency)
 
 
-       //sumup total
-        const itemsPrice = Number(props.itemsPrice) * Number(e.rate)
-        console.log(itemsPrice)
+        //sumup total
+        // const itemsPrice = Number(props.itemsPrice) * Number(e.rate)
+        // console.log(itemsPrice)
         var exchangeRate = e.rate;
 
         props.pull_ItemsPrice(exchangeRate, currency1);
@@ -67,14 +87,13 @@ export default function CurrencyCalc(props) {
     </select>
   </CurrencyCalcStyle> :
 
-    <CurrencyCalcStyle>
-      <select className="selectOption" value={currency1} onChange={(e) => handleCurrencyChange(e)}>
 
-        {data.rates.map((item) => (<option  className="currencyOption" key={item.currency} value={item.currency}>{item.currency}</option>))
+    <CurrencyOption
+      data={data}
+      currency1={currency1}
+      onChangeCurrency1={e => handleCurrencyChange(e)}
+    />
 
-        }
-      </select>
-    </CurrencyCalcStyle>
 }
 
 
