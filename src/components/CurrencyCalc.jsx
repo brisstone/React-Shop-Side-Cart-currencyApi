@@ -22,12 +22,7 @@ export default function CurrencyCalc(props) {
 
 
         if (item.currency === currency1) {
-          // console.log(item.rate)
-          // console.log(item.currency)
-
-          //sumup total
-          // const itemsPrice = Number(props.itemsPrice) * Number(item.rate)
-          // console.log(itemsPrice)
+          
           var exchangeRate = item.rate;
 
           props.pull_ItemsPrice(exchangeRate, currency1);
@@ -54,18 +49,12 @@ export default function CurrencyCalc(props) {
     setCurrency1(e.target.value)
 
 
-    // console.log(e.target.value)
+    
 
     data.rates.filter(e => {
 
       if (e.currency === currency1) {
-        // console.log(e.rate)
-        // console.log(e.currency)
-
-
-        //sumup total
-        // const itemsPrice = Number(props.itemsPrice) * Number(e.rate)
-        // console.log(itemsPrice)
+      
         var exchangeRate = e.rate;
 
         props.pull_ItemsPrice(exchangeRate, currency1);
