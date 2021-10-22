@@ -87,13 +87,13 @@ export default function CurrencyCalc(props) {
     </select>
   </CurrencyCalcStyle> :
 
-
+  <CurrencyCalcStyle>
     <CurrencyOption
       data={data}
       currency1={currency1}
       onChangeCurrency1={e => handleCurrencyChange(e)}
     />
-
+  </CurrencyCalcStyle>
 }
 
 

@@ -90,7 +90,7 @@ export default function Sidebar(props) {
                 </div>
                 <div className="product-total">
                  
-                  {currency1}&nbsp;{Number(rate) * item.qty * item.price.toFixed(2)}
+                  {currency1}&nbsp;{Number(rate) * item.qty * item.price}
                 </div>
                 <div className="image-div">
                   <img src={item.image} alt="#" />
