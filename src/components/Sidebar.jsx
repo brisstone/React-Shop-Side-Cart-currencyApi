@@ -90,7 +90,7 @@ export default function Sidebar(props) {
                 </div>
                 <div className="product-total">
 
-                  {currency1}&nbsp;{Number(rate) * item.qty * item.price}
+                  {currency1}&nbsp;{(Number(rate) * item.qty * item.price).toFixed(2)}
                 </div>
                 <div className="image-div">
                   <img src={item.image} alt="#" />
@@ -150,6 +150,15 @@ const SidebarStyle = styled.div`
     right: 0;
     /* display: flex;
     flex-direction: column; */
+
+    @media only screen and (max-width: 768px){
+      html{
+  font-size: 48% ;  /* i want 1 rem = 12px ; 8px/16px = 50% */
+      }
+
+     width: 300px
+
+    }
   }
 
   &.shrink {
