@@ -98,6 +98,13 @@ const ProductsStyle = styled.div`
     place-self: unset;
     /* align-self: center; */
     object-fit: contain;
+
+    @media only screen and (max-width: 768px){
+     
+
+     height: 160px;
+     width: 160px;
+    }
    
   }
   .add-to-cart{

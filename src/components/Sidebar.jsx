@@ -178,6 +178,7 @@ const SidebarStyle = styled.div`
         grid-template-rows: 1fr ;
       
 
+        
   }
 
   .sidebar-header{
@@ -212,6 +213,10 @@ const SidebarStyle = styled.div`
     padding-right: 0.5rem;
     /* justify-content: center; */
     padding-bottom: 0.5rem;
+
+    
+  
+
   }
 
   .image-div{
@@ -224,6 +229,9 @@ const SidebarStyle = styled.div`
   img{
     height: 2rem;
     width: 2rem;
+
+    
+   
   }
 
   .product-name-btn{
