@@ -99,6 +99,13 @@ const ProductsStyle = styled.div`
     /* align-self: center; */
     object-fit: contain;
 
+    // @media only screen and (max-width: 768px){
+     
+
+    //   height: 150px;
+    //   width: 150px;
+    //  }
+
     @media only screen and (max-width: 768px){
      
 

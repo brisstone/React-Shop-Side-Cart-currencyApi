@@ -52,7 +52,7 @@ let productsdata : { _id: number, name: string, image: string, price: number }[]
     },
     {
         _id: 8,
-        name: 'Oceanic View Articulation',
+        name: 'Oceanic View',
         image: '/images/8.jpeg',
         price: 540,
        
